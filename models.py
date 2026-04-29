@@ -1,5 +1,6 @@
 class Bug:
-    def __init__(self, bug_id, title, description, severity):
+    # Constructor. Values a bug must receive when created
+    def __init__(self, bug_id, title, description, severity): # Object (bug, its values)
         self.id = bug_id
         self.title = title
         self.description = description
