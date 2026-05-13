@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS bugs (
     title TEXT,
     description TEXT,
     severity TEXT,
-    status TEXT,
+    status TEXT
 )
 """)
+
+connection.commit() #Actually save the changes to the database
+connection.close() #Done talking to database
