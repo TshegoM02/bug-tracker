@@ -1,10 +1,11 @@
 from models import Bug # Bring somthing from another file, in this case the Bug class from models
+import sqlite3
 
 # This will manage multiple bugs
 class BugTracker:
     def __init__(self): # Runs when a tracker is craeted
-        self.bugs = [] # Empty list to store bugs
-        self.next_id = 1 # Start counting bugs from 1
+        self.connection = sqlite3.connect("bugs.db") # Connect to the database file, if it doesn't exist it will be created
+        self.cursor = self.connection.cursor()
 
     def create_bug(self, title, description, severity): # This function creates a new bug with the given details
         bug = Bug(self.next_id, title, description, severity) # Create a new bug using the data given
