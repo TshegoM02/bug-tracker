@@ -39,7 +39,18 @@ class BugTracker:
         """, (bug_id, comment))
 
         self.connection.commit()
-    
+
+    def show_bug_comments(self, bug_id):
+        self.cursor.execute("""
+        SELECT comment FROM comments
+        WHERE bug_id = ?
+        """, (bug_id,))
+
+        comments = self.cursor.fetchall()
+        
+        for comment in comments:
+            print(comment[0])
+
     def list_bugs(self):
         self.cursor.execute("SELECT * FROM bugs")
         
@@ -52,7 +63,11 @@ class BugTracker:
 if __name__ == "__main__": # Only run this code if this file is run directly
     tracker = BugTracker() # Create a BugTracker object, make a new tracker
 
-    tracker.create_bug("Login error", "User can't log in", "High") # Tell tracker to create a bug with this info
-    tracker.create_bug("UI glitch", "Button misaligned", "Low")
+    tracker.create_bug("Login error", "User unable tologin", "High") # Tell tracker to create a bug with this info
+    tracker.update_bug_status(9, "In Progress")
+    tracker.add_bug_comment(9, "Developer investigating issue")
 
     tracker.list_bugs() # Show all bugs in the tracker, should show the two we just created
+
+    print("\nComments for Bug 1:") # Print a header for the comments
+    tracker.show_bug_comments(9) # Show comments for bug with id 1
