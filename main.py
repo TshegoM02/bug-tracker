@@ -20,26 +20,25 @@ class BugTracker:
             "SELECT * FROM bugs WHERE id = ?",
             (bug_id,)
         )
+        
         return self.cursor.fetchone()
 
     def update_bug_status(self, bug_id, new_status):
-        bug = self.find_bug_by_id(bug_id)
-        
-        if bug:
-            bug.update_status(new_status)
-            return True
-        
-        return False
+        self.cursor.execute("""
+        UPDATE bugs
+        SET status = ?
+        WHERE id = ?
+        """, (new_status, bug_id))
+
+        self.connection.commit()
     
     def add_bug_comment(self, bug_id, comment):
-        bug = self.find_bug_by_id(bug_id)
-        
-        if bug:
-            bug.add_comment(comment)
-            return True
-        
-        return False # This function will change the status of a bug    
-         # This function will find a bug by its ID number
+        self.cursor.execute("""
+        INSERT INTO comments (bug_id, comment)
+        VALUES (?, ?)
+        """, (bug_id, comment))
+
+        self.connection.commit()
     
     def list_bugs(self):
         self.cursor.execute("SELECT * FROM bugs")
