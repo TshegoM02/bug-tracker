@@ -13,5 +13,13 @@ CREATE TABLE IF NOT EXISTS bugs (
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS comments (
+    id INTEGER PRIMARY KEY,
+    bug_id INTEGER,
+    comment TEXT
+)
+""")
+
 connection.commit() #Actually save the changes to the database
 connection.close() #Done talking to database
