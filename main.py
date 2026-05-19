@@ -65,11 +65,22 @@ class BugTracker:
 if __name__ == "__main__": # Only run this code if this file is run directly
     tracker = BugTracker() # Create a BugTracker object, make a new tracker
 
-    bug_id = tracker.create_bug("Login error", "User unable to login", "High") # Tell tracker to create a bug with this info
-    tracker.update_bug_status(bug_id, "In Progress")
-    tracker.add_bug_comment(bug_id, "Developer investigating issue")
+    while True:
+        print("\nBug Tracker Menu")
+        print("1. Create Bug")
+        print("2. View Bugs")
+        print("3. Update Bug Status")
+        print("4. Add Comment")
+        print("5. View Comments")
+        print("6. Exit")
 
-    tracker.list_bugs() # Show all bugs in the tracker, should show the two we just created
+        choice = input("Choose an option: ")
 
-    print(f"\nComments for Bug {bug_id}:") # Print a header for the comments
-    tracker.show_bug_comments(bug_id) # Show comments for bug with id 1
+        if choice == "1":
+            title = input("Enter bug title: ")
+            description = input("Enter description: ")
+            severity = input("Enter severity (Low/Medium/High): ")
+
+            bug_id = tracker.create_bug(title, description, severity)
+
+            print(f"Bug created with ID {bug_id}")
