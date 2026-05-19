@@ -14,6 +14,8 @@ class BugTracker:
         """, (title, description, severity, "Open"))
         
         self.connection.commit()
+
+        return self.cursor.lastrowid
     
     def find_bug_by_id(self, bug_id):
         self.cursor.execute(
@@ -63,11 +65,11 @@ class BugTracker:
 if __name__ == "__main__": # Only run this code if this file is run directly
     tracker = BugTracker() # Create a BugTracker object, make a new tracker
 
-    tracker.create_bug("Login error", "User unable tologin", "High") # Tell tracker to create a bug with this info
-    tracker.update_bug_status(9, "In Progress")
-    tracker.add_bug_comment(9, "Developer investigating issue")
+    bug_id = tracker.create_bug("Login error", "User unable to login", "High") # Tell tracker to create a bug with this info
+    tracker.update_bug_status(bug_id, "In Progress")
+    tracker.add_bug_comment(bug_id, "Developer investigating issue")
 
     tracker.list_bugs() # Show all bugs in the tracker, should show the two we just created
 
-    print("\nComments for Bug 1:") # Print a header for the comments
-    tracker.show_bug_comments(9) # Show comments for bug with id 1
+    print(f"\nComments for Bug {bug_id}:") # Print a header for the comments
+    tracker.show_bug_comments(bug_id) # Show comments for bug with id 1
