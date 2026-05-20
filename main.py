@@ -128,5 +128,6 @@ if __name__ == "__main__": # Only run this code if this file is run directly
         elif choice == "6":
             print("Goodbye!")
             break
-    else:
-        print("Invalid choice. Please choose 1-6.")
+        else:
+            print("Invalid option. Please choose an option from 1-6.")
+        
