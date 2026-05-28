@@ -17,3 +17,10 @@ class TestBugTracker(unittest.TestCase):
 
         self.assertEqual(bug[4], "Resolved")
 
+    def test_add_bug_comment(self):
+        tracker = BugTracker()
+        bug_id = tracker.create_bug("UI Issue", "Button btoken", "Low")
+        tracker.add_bug_comment(bug_id, "Developer investigating")
+        comments = tracker.show_bug_comments(bug_id)
+        self.assertEqual(len(comments), 1)
+
