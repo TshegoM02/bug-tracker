@@ -64,7 +64,9 @@ if __name__ == "__main__": # Only run this code if this file is run directly
             bug = tracker.find_bug_by_id(bug_id)
             if bug:
                 print(f"\nComments for Bug {bug_id}:")
-                tracker.show_bug_comments(bug_id)
+                comments = tracker.show_bug_comments(bug_id)
+                for comment in comments:
+                    print(comment[0])
             else:
                 print("Bug not found.")
 

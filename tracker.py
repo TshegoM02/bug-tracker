@@ -43,15 +43,18 @@ class BugTracker:
         self.connection.commit()
 
     def show_bug_comments(self, bug_id):
-        self.cursor.execute("""
-        SELECT comment FROM comments
+        connection = sqlite3.connect("bugs.db")
+        cursor = connection.cursor()
+        cursor.execute("""
+        SELECT comment 
+        FROM comments
         WHERE bug_id = ?
         """, (bug_id,))
 
-        comments = self.cursor.fetchall()
+        comments = cursor.fetchall()
         
-        for comment in comments:
-            print(comment[0])
+        connection.close()
+        return comments
 
     def list_bugs(self):
         self.cursor.execute("SELECT * FROM bugs")
