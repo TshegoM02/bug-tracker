@@ -24,3 +24,8 @@ class TestBugTracker(unittest.TestCase):
         comments = self.tracker.show_bug_comments(bug_id)
 
         self.assertEqual(len(comments), 1)
+
+    def test_new_bug_starts_open(self):
+        bug_id = self.tracker.create_bug("Signup Error", "Cannot create account", "High")
+        bug = self.tracker.find_bug_by_id(bug_id)
+        self.assertEqual(bug[4], "Open")

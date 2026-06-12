@@ -8,4 +8,4 @@ class Bug:
         self.status = status
 
 def __str__(self): # Controls how the bug is printed.
-    return f"[{self.id}] {self.title} - {self.severity} - {self.status}"       
+    return f"[{self.id}] {self.title} - {self.severity} - {self.status}"

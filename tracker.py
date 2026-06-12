@@ -9,7 +9,12 @@ class BugTracker:
 
     def create_bug(self, title, description, severity): # This function creates a new bug with the given details
         self.cursor.execute("""
-        INSERT INTO bugs (title, description, severity, status)
+        INSERT INTO bugs (
+            title, 
+            description, 
+            severity, 
+            status
+        )
         VALUES (?, ?, ?, ?)
         """, (title, description, severity, "Open"))
         
