@@ -3,8 +3,8 @@ import sqlite3
 
 # This will manage multiple bugs
 class BugTracker:
-    def __init__(self): # Runs when a tracker is craeted
-        self.connection = sqlite3.connect("bugs.db") # Connect to the database file, if it doesn't exist it will be created
+    def __init__(self, db_name="bugs.db"): # Runs when a tracker is craeted
+        self.connection = sqlite3.connect(db_name) # Connect to the database file, if it doesn't exist it will be created
         self.cursor = self.connection.cursor()
 
     def create_bug(self, title, description, severity): # This function creates a new bug with the given details
@@ -48,17 +48,14 @@ class BugTracker:
         self.connection.commit()
 
     def show_bug_comments(self, bug_id):
-        connection = sqlite3.connect("bugs.db")
-        cursor = connection.cursor()
-        cursor.execute("""
+        self.cursor.execute("""
         SELECT comment 
         FROM comments
         WHERE bug_id = ?
         """, (bug_id,))
 
-        comments = cursor.fetchall()
+        comments = self.cursor.fetchall()
         
-        connection.close()
         return comments
 
     def list_bugs(self):
