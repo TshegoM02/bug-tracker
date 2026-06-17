@@ -1,9 +1,11 @@
 import unittest
 from tracker import BugTracker
+from database import create_tables
 
 class TestBugTracker(unittest.TestCase):
     def setUp(self):
-        self.tracker = BugTracker()
+        create_tables("test_bugs.db")
+        self.tracker = BugTracker("test_bugs.db")
         
     def test_create_bug(self):
         bug_id = self.tracker.create_bug("Login Issue", "User cannot login", "High")
