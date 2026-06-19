@@ -1,9 +1,13 @@
 import unittest
 from tracker import BugTracker
 from database import create_tables
+import os 
 
 class TestBugTracker(unittest.TestCase):
     def setUp(self):
+        if os.path.exists("test-bugs.db"):
+            os.remove("test_bugs.db")
+
         create_tables("test_bugs.db")
         self.tracker = BugTracker("test_bugs.db")
         
