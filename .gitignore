@@ -1,0 +1,9 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Database files
+*.db
+
+# Mac files
+.DS_Store
